@@ -1,0 +1,173 @@
+{{!-- <div class="container">
+
+
+    <h3 class="alert alert-dark p-3 text-dark text-center">All Categories </h3>
+
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <table class="table table-bordered text-center border-success text-white">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Title</th>
+                                                <th>Creation Date</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover bg-dark category-list">
+                    {{#each subscribers}}
+                    <tr>
+
+                        <td>{{email}}</td>
+                        <td>{{creationDate}}</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="/newsletter/subscriber/edit/{{id}}" class="btn btn-sm btn-warning mr-2"
+                                role="button">Edit</a>
+                            <form action="/newsletter/subscriber/delete/{{id}}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row p-4">
+        <div class="col-md-8">
+            <div class="form-group">
+                <form action="/dashboard/newsletter/subscribers" method="post">
+                    <label>Enter Email</label>
+                    <input type="text" name="email" value="{{email}}" id="">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div> --}}
+{{!-- <div class="container">
+
+
+    <h3 class="alert alert-dark p-3 text-dark text-center">All Categories </h3>
+
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <table class="table table-bordered text-center border-success text-white">
+                <thead class="bg-primary">
+                <tr>
+                    <th>Title</th>
+                                        <th>Created By</th>
+
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody class="table-hover bg-dark category-list">
+                {{#each categories}}
+                    <tr>
+
+                        <td>{{title}}</td>
+                                                <td>{{author.firstName}} {{author.lastName}}</td>
+
+                        <td class="d-flex justify-content-center">
+                            <a href="/dashboard/category/edit/{{_id}}" class="btn btn-sm btn-warning mr-2" role="button">Edit</a>
+                            <form action="/dashboard/category/delete/{{_id}}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row p-4">
+        <div class="col-md-8">
+                <form class="form-group" action="/dashboard/category/create" method="POST">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="category-title" name="title" placeholder="Enter Title">
+                                        <input type="text" class="form-control"  name="slug" placeholder="Enter Slug">
+                                        <button type="submit" class="btn btn-outline-success btn-lg" id="create-category-button">Create Category</button>
+
+                </form>
+        </div>
+    </div>
+
+
+</div> --}}
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+
+            <div class="row m-t-30">
+                <div class="col-md-12">
+                    <!-- DATA TABLE-->
+                    <form action="/dashboard/newsletter/subscribers" method="POST" class="row form-group mb-5">
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <label for="exampleInputName">First name</label>
+                                    <input name="firstName" class="form-control" id="exampleInputName" type="text"
+                                        aria-describedby="nameHelp" placeholder="Enter first name" value="">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="exampleInputLastName">Last name</label>
+                                    <input name="lastName" class="form-control" id="exampleInputName" type="text"
+                                        aria-describedby="nameHelp" placeholder="Enter last name" value="">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="exampleInputLastName">Email</label>
+                                    <input name="email" class="form-control" id="exampleInputEmail" type="text" aria-describedby="emailHelp"
+                                        placeholder="Enter email address" value="">
+                                </div>
+                            </div><br><br>
+                            <button type="submit" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                <i class="zmdi zmdi-plus"></i>add </button>
+                        </div>
+                        
+                    </form>
+                    <div class="table-responsive m-b-40">
+                        <table class="table table-borderless table-data3">
+                            <thead>
+                                <tr>
+                                    <th>date</th>
+                                    <th>first name</th>
+                                    <th>last name</th>
+                                    <th>email</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each subscribers}}
+                                <tr>
+                                    <td>{{creationDate}}</td>
+                                    <td>{{firstName}}</td>
+                                    <td>{{lastName}}</td>
+                                    <td>{{email}}</td>
+                                    <td>
+                                        <a href="/dashboard/newsletter/subscriber/edit/{{id}}" class="btn btn-sm btn-warning mr-2"
+                                            role="button">Edit</a>
+                                        <form action="/dashboard/newsletter/subscriber/delete/{{id}}?newMethod=DELETE"
+                                            method="post">
+                                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END DATA TABLE-->
+                </div>
+            </div>

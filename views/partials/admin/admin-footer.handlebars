@@ -1,0 +1,172 @@
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <div class="copyright">
+                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<!-- Jquery JS-->
+<script src="/vendor/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap JS-->
+<script src="/vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<!-- Vendor JS       -->
+<script src="/vendor/slick/slick.min.js">
+</script>
+<script src="/vendor/wow/wow.min.js"></script>
+<script src="/vendor/animsition/animsition.min.js"></script>
+<script src="/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+</script>
+<script src="/vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="/vendor/counter-up/jquery.counterup.min.js">
+</script>
+<script src="/vendor/circle-progress/circle-progress.min.js"></script>
+<script src="/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="/vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="/vendor/select2/select2.min.js">
+</script>
+
+<!-- Main JS-->
+<script src="/js/main.js"></script>
+<script>
+
+    $(".approveComments").bootstrapSwitch();
+
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('.auto-hide').slideUp(300);
+        }, 2000);
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        $('.approveComments').bootstrapSwitch().on('switchChange.bootstrapSwitch', function (e, data) {
+
+            var buttonData = data;
+
+            var id = $(this).attr('data-buttonid');
+
+            $.ajax({
+                url: '/admin/comment',
+                type: 'POST',
+                data: {data: buttonData, id: id},
+                success: function (response) {
+
+                    if(response.toLowerCase() === 'ok')
+                    {
+                        toastr.success('RECORD updated');
+                    }
+
+                    else
+
+                    {
+                        toastr.error('RECORD failed to updated');
+                    }
+
+                }
+            });
+
+
+        });
+        
+        
+        
+        
+        
+
+
+        $("#create-category-button").on('click', function (e) {
+            e.preventDefault();
+
+            var data = $("#category-title").val();
+
+            $.ajax({
+                url: '/dashboard/category/create',
+                type: 'POST',
+                data: {name: data},
+                success: function (response) {
+
+                    var html = `<tr>
+                        <td>${response.title}</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="/dashboard/category/edit/${response._id}" class="btn btn-sm btn-warning mr-2">Edit</a>
+                            <form action="/dashboard/category/${response._id}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>`;
+
+
+                    $(".category-list").append(html);
+
+                }
+            });
+
+            $("#category-title").val('');
+        });
+
+
+        $("#update-category-button").on('click', function (e) {
+            e.preventDefault();
+
+            var data = $("#category-title").val();
+            var id = $("#category-id").val();
+
+            $.ajax({
+                url: `/admin/category/edit/${id}`,
+                type: 'POST',
+                data: {name: data},
+                success: function (response) {
+                    window.location.href = response.url;
+                }
+            });
+        });
+
+
+    });
+
+</script>
