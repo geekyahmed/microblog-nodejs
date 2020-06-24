@@ -19,6 +19,19 @@
                                             class="form-control">
                                     </div>
                                 </div>
+                                  <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="category" class=" form-control-label">Category</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <select name="category" id="category" class="form-control">
+                                            {{#each subscribers}}
+                                            <option value="{{_id}}">{{email}}</option>
+                                            {{/each}}
+
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="row form-group">
                                     <div class="col col-md-9">
                                         <label for="textarea-input" class=" form-control-label">Body: </label>

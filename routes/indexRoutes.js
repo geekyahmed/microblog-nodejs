@@ -6,6 +6,8 @@ const commentController = require("../controllers/commentController");
 router.route('/')
     .get(indexController.index)
 
+router.route('/add')
+    .post(indexController.addSubscriber)
 
 router.route('/post/:id')
     .get(indexController.getSinglePost)

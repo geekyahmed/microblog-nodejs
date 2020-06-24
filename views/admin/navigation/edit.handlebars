@@ -1,0 +1,114 @@
+{{!-- <div class="container">
+
+
+    <h3 class="alert alert-dark p-3 text-dark text-center">All Categories </h3>
+
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <table class="table table-bordered text-center border-success text-white">
+                <thead class="bg-primary">
+                <tr>
+                    <th>Title</th>
+                                        <th>Created By</th>
+
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody class="table-hover bg-dark category-list">
+                {{#each categories}}
+                    <tr>
+
+                        <td>{{title}}</td>
+                                                <td>{{author.firstName}} {{author.lastName}}</td>
+
+                        <td class="d-flex justify-content-center">
+                            <a href="/dashboard/category/edit/{{_id}}" class="btn btn-sm btn-warning mr-2" role="button">Edit</a>
+                            <form action="/dashboard/category/delete/{{_id}}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row p-4">
+        <div class="col-md-8">
+                <form class="form-group" action="/dashboard/category/create" method="POST">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="category-title" name="title" placeholder="Enter Title">
+                                        <input type="text" class="form-control"  name="slug" placeholder="Enter Slug">
+                                        <button type="submit" class="btn btn-outline-success btn-lg" id="create-category-button">Create Category</button>
+
+                </form>
+        </div>
+    </div>
+
+
+</div> --}}
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+
+            <div class="row m-t-30">
+                <div class="col-md-12">
+                    <!-- DATA TABLE-->
+                    <form action="/dashboard/navigation/edit/{{navigation.slug}}?newMethod=PUT" method="POST"
+                        class="row form-group mb-5">
+                        <div class="col col-md-3">
+                            <label for="text-input" class=" form-control-label">Title: </label>
+                        </div>
+                        <div class="col-9 col-md-6">
+                            <input type="text" id="text-input" name="title" value="{{navigation.title}}"
+                                class="form-control">
+                        </div>
+                        <br><br>Here
+                        <div class="col col-md-3">
+                            <label for="text-input" class=" form-control-label">Slug: </label>
+                        </div>
+                        <div class="col-9 col-md-6">
+                            <input type="text" id="text-input" name="slug" value="/{{navigation.slug}}" class="form-control">
+                            <p>Leave blank for generated url</p>
+                        </div>
+                        <input type="hidden" value="{{navigation.id}}">
+                        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                            <i class="zmdi zmdi-plus"></i>update </button>
+                    </form>
+                    <div class="table-responsive m-b-40">
+                        <table class="table table-borderless table-data3">
+                            <thead>
+                                <tr>
+                                    <th>date</th>
+                                    <th>title</th>
+                                    <th>link</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each navigation}}
+                                <tr>
+                                    <td>{{creationDate}}</td>
+                                    <td>{{title}}</td>
+                                    <td>/{{slug}}</td>
+                                    <td>
+                                        <a href="/dashboard/navigation/edit/{{slug}}"
+                                            class="btn btn-sm btn-warning mr-2" role="button">Edit</a>
+                                        <form action="/dashboard/navigation/delete/{{slug}}?newMethod=DELETE"
+                                            method="post">
+                                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END DATA TABLE-->
+                </div>
+            </div>

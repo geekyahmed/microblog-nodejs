@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Newsletter = require('../models/newsletterModel').Newsletter
 const Subscriber = require('../models/subscriberModel').Subscriber
 const nodemailer = require('nodemailer')
@@ -18,7 +19,7 @@ module.exports = {
 
         const newsletterDetails = new Newsletter({
             title: title,
-            subscribers: subscribers,
+            subscribers: subscribers.email,
             body: body
         })
         newsletterDetails.save().then(newsLetter => {
@@ -31,9 +32,9 @@ module.exports = {
                     })
                     const mailOptions = {
                       from: 'SparkPress <newsletter@sparkpress.com>',
-                      to: subscribers.email,
-                      subject: newsLetter.title,
-                      text: newsLetter.body
+                      to: subscribers,
+                      subject: title,
+                      text: body
                                         }
                     transporter.sendMail(mailOptions, err => {
                       if (err) {

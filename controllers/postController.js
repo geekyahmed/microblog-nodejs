@@ -1,37 +1,42 @@
 const User = require('../models/userModel').User
 const ObjectId = require('mongoose').Types.ObjectId
+const Audio = require('../models/audioModel').Audio
 const Post = require('../models/postModel').Post
 const Category = require('../models/categoryModel').Category
-const { isEmpty } = require('../config/customFunctions')
+const {
+  isEmpty
+} = require('../config/customFunctions')
 
 module.exports = {
   getPosts: (req, res) => {
-   if(req.user.role == 'admin'){
+    if (req.user.role == 'admin') {
       Post.find()
-      .populate('author')
-      .populate('category')
-      .then(posts => {
-        res.render('admin/posts/index', {
-          posts: posts
+        .populate('author')
+        .populate('category')
+        .then(posts => {
+          res.render('admin/posts/index', {
+            posts: posts
+          })
         })
-      })
-   }
-   else{
-      Post.find({'author' : req.user._id})
-      .populate('author')
-      .populate('category')
-      .then(posts => {
-        res.render('admin/posts/index', {
-          posts: posts
+    } else {
+      Post.find({
+          'author': req.user._id
         })
-      })
-   }
+        .populate('author')
+        .populate('category')
+        .then(posts => {
+          res.render('admin/posts/index', {
+            posts: posts
+          })
+        })
+    }
   },
 
-  getCreatePost: async(req, res) => {
+  getCreatePost: async (req, res) => {
     const categories = await Category.find()
     res.render('admin/posts/create', {
-      categories: categories    })
+      categories: categories
+    })
   },
 
   submitPost: (req, res) => {
@@ -73,20 +78,29 @@ module.exports = {
 
   getEditPostPage: (req, res) => {
     const id = req.params.id
-    const $or = [{ slug: id }]
+    const $or = [{
+      slug: id
+    }]
 
     if (ObjectId.isValid(id)) {
-      $or.push({ _id: ObjectId(id) })
+      $or.push({
+        _id: ObjectId(id)
+      })
     }
-    Post.findOne({ $or: $or }).then(post => {
+    Post.findOne({
+      $or: $or
+    }).then(post => {
       Category.find().then(cats => {
-        res.render('admin/posts/edit', { post: post, categories: cats })
+        res.render('admin/posts/edit', {
+          post: post,
+          categories: cats
+        })
       })
     })
   },
 
   submitEditPostPage: (req, res) => {
-        const isFeaturedPost = !!req.body.isFeatured
+    const isFeaturedPost = !!req.body.isFeatured
     const isTopPost = !!req.body.isTop
 
     // Check for any input file
@@ -102,13 +116,19 @@ module.exports = {
     }
     const commentsAllowed = !!req.body.allowComments
     const id = req.params.id
-    const $or = [{ slug: id }]
+    const $or = [{
+      slug: id
+    }]
 
     if (ObjectId.isValid(id)) {
-      $or.push({ _id: ObjectId(id) })
+      $or.push({
+        _id: ObjectId(id)
+      })
     }
 
-    Post.findOne({ $or: $or }).then(post => {
+    Post.findOne({
+      $or: $or
+    }).then(post => {
       post.title = req.body.title
       post.status = req.body.status
       post.type = req.body.type
@@ -117,7 +137,7 @@ module.exports = {
       post.isTop = isTopPost
       post.description = req.body.description
       post.category = req.body.category,
-            post.file = `/uploads/${filename}`
+        post.file = `/uploads/${filename}`
 
 
       post.save().then(updatePost => {
@@ -133,6 +153,183 @@ module.exports = {
   deletePost: (req, res) => {
     const id = req.params.id
     Post.findByIdAndDelete(id).then(deletedPost => {
+      req.flash(
+        'success-message',
+        `The post ${deletedPost.title} has been deleted.`
+      )
+      res.redirect('/dashboard/posts')
+    })
+  },
+  getAudios: (req, res) => {
+    if (req.user.role == 'admin') {
+      Audio.find()
+        .populate('author')
+        .populate('category')
+        .then(audios => {
+          res.render('admin/audios/index', {
+            audios: audios
+          })
+        })
+    } else {
+      Audio.find({
+          'author': req.user._id
+        })
+        .populate('author')
+        .populate('category')
+        .then(audios => {
+          res.render('admin/audios/index', {
+            audios: audios
+          })
+        })
+    }
+  },
+
+  getCreateAudio: async (req, res) => {
+    const categories = await Category.find()
+    res.render('admin/audios/create', {
+      categories: categories
+    })
+  },
+
+  submitAudio: (req, res) => {
+    const commentsAllowed = !!req.body.allowComments
+    const isFeaturedPost = !!req.body.isFeatured
+    const isTopPost = !!req.body.isTop
+
+    // Check for any input file
+    let filename = ''
+
+    if (!isEmpty(req.files)) {
+      let file = req.files.uploadedFile
+      filename = file.name
+      let uploadDir = './public/uploads/posts/'
+      file.mv(uploadDir + filename, err => {
+        if (err) throw err
+      })
+    }
+
+    // Check for any input file
+    let audioname = ''
+
+    if (!isEmpty(req.files)) {
+      let audio = req.files.uploadedAudio
+      audioname = audio.name
+      let uploadDir = './public/uploads/audios/'
+      audio.mv(uploadDir + audioname, err => {
+        if (err) throw err
+      })
+    }
+
+    const newAudio = new Audio({
+      author: req.user._id,
+      title: req.body.title,
+      description: req.body.description,
+      tag: req.body.tag,
+      status: req.body.status,
+      type: req.body.type,
+      allowComments: commentsAllowed,
+      isFeatured: isFeaturedPost,
+      isTop: isTopPost,
+      category: req.body.category,
+      file: `/uploads/posts/${filename}`,
+      audio: `/uploads/audios/${audioname}`
+    })
+
+    newAudio.save().then(audio => {
+      req.flash('success-message', 'Audio created successfully.')
+      res.redirect('/dashboard/posts')
+    })
+  },
+
+  getEditAudioPage: (req, res) => {
+    const id = req.params.id
+    const $or = [{
+      slug: id
+    }]
+
+    if (ObjectId.isValid(id)) {
+      $or.push({
+        _id: ObjectId(id)
+      })
+    }
+    Audio.findOne({
+      $or: $or
+    }).then(audio => {
+      Category.find().then(cats => {
+        res.render('admin/audios/edit', {
+          audio: audio,
+          categories: cats
+        })
+      })
+    })
+  },
+
+  submitEditAudioPage: (req, res) => {
+    const isFeaturedPost = !!req.body.isFeatured
+    const isTopPost = !!req.body.isTop
+
+    // Check for any input file
+    let filename = ''
+
+    if (!isEmpty(req.files)) {
+      let file = req.files.uploadedFile
+      filename = file.name
+      let uploadDir = './public/uploads/'
+      file.mv(uploadDir + filename, err => {
+        if (err) throw err
+      })
+    }
+
+    let audioname = ''
+
+    if (!isEmpty(req.files)) {
+      let audio = req.files.uploadedAudio
+      audioname = audio.name
+      let uploadDir = './public/uploads/audios/'
+      audio.mv(uploadDir + audioname, err => {
+        if (err) throw err
+      })
+    }
+
+    const commentsAllowed = !!req.body.allowComments
+    const id = req.params.id
+    const $or = [{
+      slug: id
+    }]
+
+    if (ObjectId.isValid(id)) {
+      $or.push({
+        _id: ObjectId(id)
+      })
+    }
+
+    Audio.findOne({
+      $or: $or
+    }).then(audio => {
+      audio.title = req.body.title
+      audio.status = req.body.status
+      audio.type = req.body.type
+      audio.allowComments = commentsAllowed
+      audio.isFeatured = isFeaturedPost
+      audio.isTop = isTopPost
+      audio.description = req.body.description
+      audio.category = req.body.category,
+        audio.file = `/uploads/${filename}`
+
+
+      audio.save().then(updatePost => {
+        req.flash(
+          'success-message',
+          `The Audio ${updatePost.title} has been updated.`
+        )
+        res.redirect('/dashboard/posts')
+      })
+    })
+  },
+
+  deleteAudio: (req, res) => {
+    const id = req.params.id
+    Audio.findByIdAndDelete(id).then(deletedPost => {
       req.flash(
         'success-message',
         `The post ${deletedPost.title} has been deleted.`

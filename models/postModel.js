@@ -17,7 +17,7 @@ const PostSchema = new Schema({
     type: String,
     default: 'public'
   },
-    type: {
+  type: {
     type: String,
     default: 'post'
   },
@@ -48,12 +48,10 @@ const PostSchema = new Schema({
     ref: 'category'
   },
 
-  comments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'comment'
-    }
-  ],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'comment'
+  }],
 
   allowComments: {
     type: Boolean,
@@ -63,7 +61,8 @@ const PostSchema = new Schema({
   file: {
     type: String,
     default: ''
-  }
+  },
+
 })
 
 PostSchema.pre('save', function (next) {
@@ -71,4 +70,6 @@ PostSchema.pre('save', function (next) {
   next()
 })
 
-module.exports = { Post: mongoose.model('post', PostSchema) }
+module.exports = {
+  Post: mongoose.model('post', PostSchema)
+}

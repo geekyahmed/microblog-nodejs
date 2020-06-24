@@ -1,0 +1,138 @@
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Create</strong> Post
+                        </div>
+                        <div class="card-body card-block">
+                            <form action="/dashboard/posts/create" method="post" enctype="multipart/form-data"
+                                class="form-horizontal">
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Title</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input" name="title" placeholder="Text"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="status" class=" form-control-label">Status</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="public">Public</option>
+                                            <option value="private">Private</option>
+                                            <option value="draft">Draft</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="type" class=" form-control-label">Post Type</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <select name="type" id="type" class="form-control">
+                                            <option value="post">Post</option>
+                                            <option value="audio">Audio</option>
+                                            <option value="video">Video</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="category" class=" form-control-label">Category</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <select name="category" id="category" class="form-control">
+                                            {{#each categories}}
+                                            <option value="{{_id}}">{{title}}</option>
+                                            {{/each}}
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="textarea-input" class=" form-control-label">Content</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <textarea name="description" id="textarea-input" rows="9"
+                                            placeholder="Content..." class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button id="create-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                        <i class="fa fa-plus fa-lg"></i>&nbsp;
+                                        <span id="payment-button-amount">Create Post</span>
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Cover </strong> Image
+                        </div>
+                        <div class="card-body card-block">
+                            <div class="row form-group">
+                                <div class="col-12 col-md-9">
+                                    <input type="file" id="file-input" name="uploadedFile"
+                                        accept="image/jpeg, image/jpg, image/png, image/bmp" class="form-control-file">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Post</strong> Elements
+                        </div>
+                        <div class="card-body card-block">
+                            Allow Comments :
+                            <label class="switch switch-text switch-primary switch-pill">
+                                <input type="checkbox" class="switch-input" name="allowComments">
+                                <span data-on="On" data-off="Off" class="switch-label"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                            <br>
+                            <br>
+                            Add To Featured Posts :
+                            <label class="switch switch-text switch-primary switch-pill">
+                                <input type="checkbox" class="switch-input" name="isFeatured">
+                                <span data-on="On" data-off="Off" class="switch-label"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                            <br>
+                            <br>
+                            Add To Top Posts :
+                            <label class="switch switch-text switch-primary switch-pill">
+                                <input type="checkbox" class="switch-input" name="isTop">
+                                <span data-on="On" data-off="Off" class="switch-label"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                            <br>
+                            <br>
+                            Send Post To Subscribers :
+                            <label class="switch switch-text switch-primary switch-pill">
+                                <input type="checkbox" class="switch-input" name="isTop">
+                                <span data-on="On" data-off="Off" class="switch-label"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
