@@ -6,20 +6,31 @@ const path = require("path");
 const hbs = require('express-handlebars');
 const cookieParser = require("cookie-parser");
 const flash = require('connect-flash');
+const moment = require('moment')
+const ngrok = require('ngrok');
+const {
+  renderPage
+} = require('./helpers/renderPage')
 const mongoose = require("mongoose");
-const { selectOption, selectOption2 } = require('./config/customFunctions');
+const {
+  selectOption
+} = require('./config/customFunctions');
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const indexRoutes = require("./routes/indexRoutes");
 const port = require("./config/port");
-const responseTime = require("response-time");
 const morgan = require("morgan");
 const db = require("./config/db");
 const fileUpload = require("express-fileupload");
 const session = require("express-session");
 const passport = require("passport");
-const { flashMessages } = require("./middlewares/flash");
-
+const {
+  flashMessages
+} = require("./middlewares/flash");
+const imageUploader = require('./helpers/imageUpload')
+const fileUploader = require('./helpers/fileUpload')
+const fs = require('fs')
+var FroalaEditor = require('./public/lib/froalaEditor.js');
 const app = express();
 
 //Setting Up Express
@@ -33,6 +44,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(renderPage)
 
 //Setting Up Session
 app.use(
@@ -42,6 +54,18 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.post('/uploadimage', function (req, res) {
+
+  // Store image.
+  FroalaEditor.Image.upload(req, '/uploads/', function(err, data) {
+    // Return data.
+    if (err) {
+      return res.send(JSON.stringify(err));
+    }
+
+    res.send(data);
+  });
+});
 
 //Setting Up Method Overrride
 app.use(methodOverride('newMethod'));
@@ -52,7 +76,15 @@ app.use(flash())
 /* Setup View Engine To Use Handlebars */
 app.engine(
   'handlebars',
-  hbs({ defaultLayout: 'default', helpers: { select: selectOption, select2: selectOption2 } })
+  hbs({
+    defaultLayout: 'default',
+    helpers: {
+      select: selectOption,
+      formatDate: function (creationDate) {
+        return moment(creationDate).format('LL')
+      }
+    }
+  })
 )
 app.set('view engine', 'handlebars')
 
@@ -101,29 +133,30 @@ switch (app.get("env")) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-//X-Response-Time Middleware
-app.use(responseTime());
 
 //Default Variables
 app.use(flashMessages);
 
 
-    app.all("*", function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "PUT, GET, POST, DELETE, OPTIONS"
-      );
-      res.header("Access-Control-Allow-Headers", "Content-Type");
-      next();
-    });
+app.all("*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "PUT, GET, POST, DELETE, OPTIONS"
+  );
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 //API ROUTES
 app.use("/", authRoutes, indexRoutes);
 app.use('/dashboard', adminRoutes)
 
 //LIsten To Server and Port Number
-app.listen(port.portID, (req, res) => {
-  console.log("Server is running at port " + port.portID);
-});
+app.listen(port.portID, (err) => {
+  console.log(`Node.js server listening on ${port.portID}`);
+  ngrok.connect(port.portIDt, function (err, url) {
+    console.log(`Node.js local server is publicly-accessible at ${url}`);
+  });
 
+});

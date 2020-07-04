@@ -8,6 +8,8 @@ module.exports = {
       const subscribers = await Subscriber.find()
         .then(subscribers => {
           res.render('admin/newsletter/compose', {
+                    title: 'Compose Newsletter',
+
             subscribers: subscribers
           })
         })
@@ -31,7 +33,7 @@ module.exports = {
                       }
                     })
                     const mailOptions = {
-                      from: 'SparkPress <newsletter@sparkpress.com>',
+                      from: 'ElixirBlog <newsletter@elixirblog.com>',
                       to: subscribers,
                       subject: title,
                       text: body

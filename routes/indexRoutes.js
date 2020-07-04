@@ -9,12 +9,18 @@ router.route('/')
 router.route('/add')
     .post(indexController.addSubscriber)
 
+router.route('/posts').get(indexController.getAllPosts)
+
 router.route('/post/:id')
     .get(indexController.getSinglePost)
     .post(commentController.submitComment);
 
-    router.route('/author/:id')
-        .get(indexController.getSingleAuthor)
+router.route('/audio/:id')
+    .get(indexController.getSingleAudio)
+    .post(commentController.submitAudioComment);
+
+router.route('/author/:id')
+    .get(indexController.getSingleAuthor)
 
 
 

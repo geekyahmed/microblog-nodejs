@@ -8,16 +8,21 @@
                     <form action="/dashboard/category/edit/{{category.slug}}?newMethod=PUT" method="POST"
                         class="row form-group mb-5">
                         <div class="col col-md-3">
-                            <label for="text-input" class=" form-control-label">Category Name: </label>
+                            <label for="text-input" class=" form-control-label mt-3"> Title: </label><br>
+                            <label for="text-input" class=" form-control-label mt-3"> Slug: </label><br>
+                            <label for="text-input" class=" form-control-label mt-3">Description: </label>
                         </div>
                         <div class="col-9 col-md-6">
                             <input type="text" id="text-input" name="title" value="{{category.title}}"
-                                class="form-control">
+                                class="form-control mt-3">
+                            <input type="text" id="text-input" name="slug" value="{{category.slug}}"
+                                class="form-control mt-3"><br>
+                            <textarea name="description" id="edit" cols="30" rows="10"
+                                class="form-control mt-3">{{category.description}}</textarea><br>
                             <input type="hidden" value="{{category.id}}">
-
+                            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                <i class="zmdi zmdi-plus"></i>add </button>
                         </div>
-                        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                            <i class="zmdi zmdi-plus"></i>Update </button>
                     </form>
                     <div class="table-responsive m-b-40">
                         <table class="table table-borderless table-data3">

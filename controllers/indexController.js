@@ -4,36 +4,27 @@ const Category = require('../models/categoryModel').Category
 const Setting = require('../models/settingModel').Setting
 const Subscriber = require('../models/subscriberModel').Subscriber
 const Navigation = require('../models/navigationModel').Navigation
-const Comment = require('../models/commentModel').Comment
+const Audio = require('../models/audioModel').Audio
 const User = require('../models/userModel').User
+const Ad = require('../models/adModel').Ad
 
 module.exports = {
   index: async (req, res) => {
-    const setting = await Setting.findOne({
-      title: 'Sparkpress Blog'
-    })
-
-    // destructure page and limit and set default values
     const {
-      page = 1, limit = 5, featuredLimit = 5, topLimit = 3, categoryLimit = 5, commentLimit = 3, authorLimit = 3, audioLimit = 5
+      page = 1, limit = 10, featuredLimit = 5, topLimit = 3, categoryLimit = 5, audioLimit = 5
     } = req.query
 
+    const setting = await Setting.findOne()
+
+    // destructure page and limit and set default values
 
     try {
-      const navigation = await Navigation.find()
-
-      const authors = await User.find()
-        .limit(authorLimit * 1)
-        .skip((page - 1) * authorLimit)
 
       const categories = await Category.find()
         .limit(categoryLimit * 1)
         .skip((page - 1) * categoryLimit)
         .exec()
 
-      const comments = await Comment.find()
-        .limit(commentLimit * 1)
-        .exec()
 
       const featuredPosts = await Post.find({
           isFeatured: true,
@@ -61,7 +52,19 @@ module.exports = {
         .skip((page - 1) * topLimit)
         .exec()
 
-      const audioPosts = await Post.find({
+      const recommendedPosts = await Post.find({
+          isRecommended: true
+        })
+        .sort({
+          title: -1
+        })
+        .populate('category')
+        .populate('author')
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .exec()
+
+      const audioPosts = await Audio.find({
           type: 'audio'
         })
         .sort({
@@ -73,6 +76,7 @@ module.exports = {
         .skip((page - 1) * audioLimit)
         .exec()
 
+      const ad = await Ad.findOne()
       // execute query with page and limit values
       const posts = await Post.find({
           status: 'public'
@@ -91,15 +95,14 @@ module.exports = {
 
       // return response with posts, total pages, and current page
       res.render('index/index', {
-        navigation: navigation,
         title: setting.title,
         file: setting.file,
+        recommendedPosts: recommendedPosts,
         audioPosts: audioPosts,
-        authors: authors,
         topPosts: topPosts,
+        ad: ad,
         featuredPosts: featuredPosts,
         posts: posts,
-        comments: comments,
         categories: categories,
         totalPages: Math.ceil(count / limit),
         currentPage: page
@@ -109,6 +112,11 @@ module.exports = {
     }
   },
   getSinglePost: async (req, res) => {
+    const {
+      page = 1, limit = 10, featuredLimit = 5, topLimit = 3, categoryLimit = 5, audioLimit = 5
+    } = req.query
+    const navigation = await Navigation.find()
+
     const id = req.params.id
     const $or = [{
       slug: id
@@ -119,11 +127,39 @@ module.exports = {
         _id: ObjectId(id)
       })
     }
+
     const posts = await Post.find()
-    const categories = await Category.find()
-    Post.findOne({
-        $or: $or
+    const featuredPosts = await Post.find({
+        isFeatured: true,
+        status: 'public'
       })
+      .sort({
+        title: -1
+      })
+      .limit(featuredLimit * 1)
+      .skip((page - 1) * featuredLimit)
+      .exec()
+
+    const topPosts = await Post.find({
+        isTop: true,
+        status: 'public'
+      })
+      .sort({
+        title: -1
+      })
+      .limit(topLimit * 1)
+      .skip((page - 1) * topLimit)
+      .exec()
+    const categories = await Category.find()
+      .limit(featuredLimit * 1)
+      .skip((page - 1) * featuredLimit)
+
+    Post.findOneAndUpdate({
+        $inc: {
+          views: 1
+        }
+      })
+      .populate('category')
       .populate('comments')
       .populate('author')
       .then(post => {
@@ -131,7 +167,10 @@ module.exports = {
           res.status(404).render('index/404')
         } else {
           res.render('index/singlepost', {
+            navigation: navigation,
             post: post,
+            featuredPosts: featuredPosts,
+            topPosts: topPosts,
             author: post.author,
             title: post.title,
             comments: post.comments,
@@ -141,7 +180,79 @@ module.exports = {
         }
       })
   },
+  getSingleAudio: async (req, res) => {
+    const {
+      page = 1, limit = 10, featuredLimit = 5, topLimit = 3, categoryLimit = 5, audioLimit = 5
+    } = req.query
+    const navigation = await Navigation.find()
+
+    const id = req.params.id
+    const $or = [{
+      slug: id
+    }]
+
+    if (ObjectId.isValid(id)) {
+      $or.push({
+        _id: ObjectId(id)
+      })
+    }
+    const featuredPosts = await Post.find({
+        isFeatured: true,
+        status: 'public'
+      })
+      .sort({
+        title: -1
+      })
+      .limit(featuredLimit * 1)
+      .skip((page - 1) * featuredLimit)
+      .exec()
+
+    const topPosts = await Post.find({
+        isTop: true,
+        status: 'public'
+      })
+      .sort({
+        title: -1
+      })
+      .limit(topLimit * 1)
+      .skip((page - 1) * topLimit)
+      .exec()
+    const categories = await Category.find()
+      .limit(categoryLimit * 1)
+      .skip((page - 1) * categoryLimit)
+      .exec()
+    const audios = await Audio.find()
+    Audio.findOne({
+        $or: $or
+      })
+      .populate('comments')
+      .populate('author')
+      .populate('category')
+      .then(audio => {
+        if (!audio) {
+          res.status(404).render('index/404')
+        } else {
+          res.render('index/singleaudio', {
+            navigation: navigation,
+
+            audio: audio,
+            author: audio.author,
+            title: audio.title,
+            comments: audio.comments,
+            audios: audios,
+            featuredPosts: featuredPosts,
+            topPosts: topPosts,
+            categories: categories
+          })
+        }
+      })
+  },
   getSingleAuthor: async (req, res) => {
+    const {
+      page = 1, limit = 10, featuredLimit = 5, topLimit = 3, categoryLimit = 5, audioLimit = 5
+    } = req.query
+    const navigation = await Navigation.find()
+
     const id = req.params.id
     const $or = [{
       username: id
@@ -152,7 +263,6 @@ module.exports = {
         _id: ObjectId(id)
       })
     }
-    const author = await User.find()
     const posts = await Post.find()
     User.findOne({
       $or: $or
@@ -161,6 +271,7 @@ module.exports = {
         res.status(404).render('index/404')
       } else {
         res.render('index/singleauthor', {
+          navigation: navigation,
           author: author,
           post: author.post,
           posts: posts
@@ -168,14 +279,48 @@ module.exports = {
       }
     })
   },
+  getAllPosts: async (req, res) => {
+    const {
+      page = 1, limit = 10, featuredLimit = 5, topLimit = 3, categoryLimit = 5, audioLimit = 5
+    } = req.query
+    const posts = await Post.find({
+        'status': 'public'
+      })
+      .populate('category')
+      .populate('author')
+      .sort({
+        title: -1
+      })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec()
+    const featuredPosts = await Post.find({
+        isFeatured: true,
+        status: 'public'
+      })
+      .sort({
+        title: -1
+      })
+      .limit(featuredLimit * 1)
+      .skip((page - 1) * featuredLimit)
+      .exec()
+
+    const categories = await Category.find()
+      .limit(categoryLimit * 1)
+      .skip((page - 1) * categoryLimit)
+      .exec()
+
+    res.render('index/posts', {
+      posts: posts,
+      featuredPosts: featuredPosts,
+      categories: categories
+    })
+
+  },
   addSubscriber: (req, res) => {
     const email = req.body.email
-    const firstName = req.body.firstName
-    const lastName = req.body.lastName
 
     const newSubscriber = new Subscriber({
-      firstName: firstName,
-      lastName: lastName,
       email: email
     })
 
@@ -183,5 +328,5 @@ module.exports = {
       req.flash('success_message', `You have just Subscribed `)
       res.redirect('/')
     })
-  },
+  }
 }

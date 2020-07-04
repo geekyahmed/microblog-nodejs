@@ -3,6 +3,7 @@ const ObjectId = require('mongoose').Types.ObjectId
 const Audio = require('../models/audioModel').Audio
 const Post = require('../models/postModel').Post
 const Category = require('../models/categoryModel').Category
+const SubCategory = require('../models/subcategoryModel').SubCategory
 const {
   isEmpty
 } = require('../config/customFunctions')
@@ -15,6 +16,7 @@ module.exports = {
         .populate('category')
         .then(posts => {
           res.render('admin/posts/index', {
+                    title: 'All Posts',
             posts: posts
           })
         })
@@ -26,6 +28,8 @@ module.exports = {
         .populate('category')
         .then(posts => {
           res.render('admin/posts/index', {
+                    title: 'All Posts',
+
             posts: posts
           })
         })
@@ -34,8 +38,10 @@ module.exports = {
 
   getCreatePost: async (req, res) => {
     const categories = await Category.find()
+    const subcategories = await SubCategory.find()
     res.render('admin/posts/create', {
-      categories: categories
+      categories: categories,
+      subcategories: subcategories
     })
   },
 
@@ -43,6 +49,7 @@ module.exports = {
     const commentsAllowed = !!req.body.allowComments
     const isFeaturedPost = !!req.body.isFeatured
     const isTopPost = !!req.body.isTop
+    const isRecommendedPost = !!req.body.isRecommended
 
     // Check for any input file
     let filename = ''
@@ -60,13 +67,16 @@ module.exports = {
       author: req.user._id,
       title: req.body.title,
       description: req.body.description,
+      excerpt: req.body.excerpt,
       tag: req.body.tag,
       status: req.body.status,
       type: req.body.type,
       allowComments: commentsAllowed,
+      isRecommended: isRecommendedPost,
       isFeatured: isFeaturedPost,
       isTop: isTopPost,
       category: req.body.category,
+      subcategory: req.body.subcategory,
       file: `/uploads/posts/${filename}`
     })
 
@@ -92,6 +102,8 @@ module.exports = {
     }).then(post => {
       Category.find().then(cats => {
         res.render('admin/posts/edit', {
+                  title: 'Edit Page',
+
           post: post,
           categories: cats
         })
@@ -102,7 +114,7 @@ module.exports = {
   submitEditPostPage: (req, res) => {
     const isFeaturedPost = !!req.body.isFeatured
     const isTopPost = !!req.body.isTop
-
+    const isRecommendedPost = !!req.body.isRecommended
     // Check for any input file
     let filename = ''
 
@@ -133,9 +145,11 @@ module.exports = {
       post.status = req.body.status
       post.type = req.body.type
       post.allowComments = commentsAllowed
+      post.isRecommended = isRecommendedPost
       post.isFeatured = isFeaturedPost
       post.isTop = isTopPost
       post.description = req.body.description
+      post.excerpt = req.body.excerpt
       post.category = req.body.category,
         post.file = `/uploads/${filename}`
 
@@ -166,7 +180,7 @@ module.exports = {
         .populate('author')
         .populate('category')
         .then(audios => {
-          res.render('admin/audios/index', {
+          res.render('admin/posts/index', {
             audios: audios
           })
         })
@@ -193,8 +207,6 @@ module.exports = {
 
   submitAudio: (req, res) => {
     const commentsAllowed = !!req.body.allowComments
-    const isFeaturedPost = !!req.body.isFeatured
-    const isTopPost = !!req.body.isTop
 
     // Check for any input file
     let filename = ''
@@ -228,8 +240,6 @@ module.exports = {
       status: req.body.status,
       type: req.body.type,
       allowComments: commentsAllowed,
-      isFeatured: isFeaturedPost,
-      isTop: isTopPost,
       category: req.body.category,
       file: `/uploads/posts/${filename}`,
       audio: `/uploads/audios/${audioname}`

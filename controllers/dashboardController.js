@@ -9,14 +9,7 @@ module.exports = {
     if (req.user.role == 'admin') {
       try {
         const categories = await Category.find()
-
-        const userPosts = await User.aggregate([
-          {
-            $match: {
-              _id: ObjectId(req.user.id)
-            }
-          }
-        ])
+        const users = await User.find()
         // destructure page and limit and set default values
         const { page = 1, limit = 4 } = req.query
         const comments = await Comment.find()
@@ -25,21 +18,16 @@ module.exports = {
 
         // execute query with page and limit values
         const posts = await Post.find()
-          .populate('category')
-          .limit(limit * 1)
-          .skip((page - 1) * limit)
-          .exec()
 
         const draftposts = await Post.find({ status: 'draft' })
 
-        // get total documents in the Posts collection
         const count = await Post.countDocuments()
 
-        // return response with posts, total pages, and current page
         res.render('admin/index', {
-          // title: setting.title,
+        title: 'Dashboard',
           draftposts: draftposts,
           posts: posts,
+          users: users,
           comments: comments,
           categories: categories,
           totalPages: Math.ceil(count / limit),

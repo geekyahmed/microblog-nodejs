@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const slug = require('mongoose-slug-generator')
+const moment = require('moment')
 const Schema = mongoose.Schema
 
 mongoose.plugin(slug)
@@ -21,6 +22,10 @@ const PostSchema = new Schema({
     type: String,
     default: 'post'
   },
+  excerpt: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -35,19 +40,26 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user'
   },
+  isRecommended: {
+    type: Boolean,
+    default: false
+  },
   isFeatured: {
     type: Boolean,
     default: true
   },
   isTop: {
     type: Boolean,
-    default: true
+    default: false
   },
   category: {
     type: Schema.Types.ObjectId,
     ref: 'category'
   },
-
+  subcategory: {
+    type: Schema.Types.ObjectId,
+    ref: 'subcategory'
+  },
   comments: [{
     type: Schema.Types.ObjectId,
     ref: 'comment'
@@ -62,7 +74,9 @@ const PostSchema = new Schema({
     type: String,
     default: ''
   },
-
+  views: {
+    type: Number
+  },
 })
 
 PostSchema.pre('save', function (next) {

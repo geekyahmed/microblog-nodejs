@@ -1,0 +1,255 @@
+<!-- ##### Breadcrumb Area Start ##### -->
+<section class="breadcrumb-area bg-img bg-overlay" style="background-image: url({{audio.file}});">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>{{audio.title}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Breadcrumb Area Start ##### -->
+<div class="mag-breadcrumb py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{audio.title}}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### Breadcrumb Area End ##### -->
+
+<!-- ##### Post Details Area Start ##### -->
+<section class="post-details-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Post Details Content Area -->
+            <div class="col-12 col-xl-8">
+                <div class="post-details-content bg-white mb-30 p-30 box-shadow">
+                    <div class="blog-thumb mb-30">
+                        <img src="{{audio.file}}" alt="">
+                    </div>
+                    <div class="blog-content">
+                        <div class="post-meta">
+                            <a href="#">{{audio.creationDate}}</a>
+                            <a href="#">{{audio.category.title}}</a>
+                        </div>
+                        <h4 class="post-title">{{audio.title}}</h4>
+                        <!-- Post Meta -->
+                        <div class="post-meta-2">
+                            <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> {{audio.views}}</a>
+                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> {{audio.comments.length}}</a>
+                        </div>
+
+                        <p>{{audio.description}}</p>
+                        <audio controls>
+                            <source src="{{audio.audio}}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <!-- Like Dislike Share -->
+                        <div class="like-dislike-share my-5">
+                            <h4 class="share">240<span>Share</span></h4>
+                            <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Share on
+                                Facebook</a>
+                            <a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i> Share on
+                                Twitter</a>
+                        </div>
+
+                        <!-- Post Author -->
+                        <div class="post-author d-flex align-items-center">
+                            <div class="post-author-thumb">
+                                <img style="height: 80px; width: 150px" src="{{audio.author.file}}" alt="">
+                            </div>
+                            <div class="post-author-desc pl-4">
+                                <a href="#" class="author-name">{{audio.author.firstName}} {{audio.author.lastName}}</a>
+                                <p>{{audio.author.bio}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Post Area -->
+                <div class="related-post-area bg-white mb-30 px-30 pt-30 box-shadow">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h5>Related Post</h5>
+                    </div>
+
+                    <div class="row">
+                        {{#each featuredPosts}}
+                        <!-- Single Blog Post -->
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="single-blog-post style-4 mb-30">
+                                <div class="post-thumbnail">
+                                    <img src="{{file}}" alt="">
+                                </div>
+                                <div class="post-content">
+                                    <a href="/post/{{slug}}" class="post-title">{{title}}</a>
+                                    <div class="post-meta d-flex">
+                                        <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> {{views}}</a>
+                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>
+                                            {{comments.length}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <!-- Comment Area Start -->
+                <div class="comment_area clearfix bg-white mb-30 p-30 box-shadow">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h5>COMMENTS</h5>
+                    </div>
+
+                    <ol>
+                        {{#each post.comments}}
+                        <!-- Single Comment Area -->
+                        <li class="single_comment_area">
+                            <!-- Comment Content -->
+                            <div class="comment-content d-flex">
+                                <!-- Comment Author -->
+                                <div class="comment-author">
+                                    <img src="/img/bg-img/53.jpg" alt="author">
+                                </div>
+                                <!-- Comment Meta -->
+                                <div class="comment-meta">
+                                    <a href="#" class="comment-date">{{date}}</a>
+                                    <h6>{{full_name}}</h6>
+                                    <p>{{body}}</p>
+                                    <div class="d-flex align-items-center">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ol>
+                </div>
+
+                <!-- Post A Comment Area -->
+                <div class="post-a-comment-area bg-white mb-30 p-30 box-shadow clearfix">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h5>LEAVE A REPLY</h5>
+                    </div>
+
+                    <!-- Reply Form -->
+                    <div class="contact-form-area">
+                        <form action="/post/{{post.slug}}" method="post">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <input type="text" class="form-control" id="name" name="full_name"
+                                        placeholder="Your Name*" required>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Your Email*" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" id="message" name="comment_body" cols="30" rows="10"
+                                        placeholder="Message*" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn mag-btn mt-30" type="submit">Submit Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Widget -->
+            <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+                <div class="sidebar-area bg-white mb-30 box-shadow">
+                    <!-- Sidebar Widget -->
+                    <div class="single-sidebar-widget p-30">
+                        <!-- Social Followers Info -->
+                        <div class="social-followers-info">
+                            <!-- Facebook -->
+                            <a href="#" class="facebook-fans"><i class="fa fa-facebook"></i> 4,360 <span>Fans</span></a>
+                            <!-- Twitter -->
+                            <a href="#" class="twitter-followers"><i class="fa fa-twitter"></i> 3,280
+                                <span>Followers</span></a>
+                            <!-- YouTube -->
+                            <a href="#" class="youtube-subscribers"><i class="fa fa-youtube"></i> 1250
+                                <span>Subscribers</span></a>
+                            <!-- Google -->
+                            <a href="#" class="google-followers"><i class="fa fa-google-plus"></i> 4,230
+                                <span>Followers</span></a>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Widget -->
+                    <div class="single-sidebar-widget p-30">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h5>Categories</h5>
+                        </div>
+
+                        <!-- Catagory Widget -->
+                        <ul class="catagory-widgets">
+                            {{#each categories}}
+                            <li><a href="#" style="text-transform: capitalize"><span><i class="fa fa-angle-double-right"
+                                            aria-hidden="true"></i>{{title}}</span></a></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <div class="single-sidebar-widget p-30">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h5>Top Posts For You</h5>
+                        </div>
+                        {{#each topPosts}}
+                        <!-- Single Blog Post -->
+                        <div class="single-blog-post d-flex">
+                            <div class="post-thumbnail">
+                                <img src="{{file}}" alt="">
+                            </div>
+                            <div class="post-content">
+                                <a href="/post/{{slug}}" class="post-title">{{title}}</a>
+                                <div class="post-meta d-flex justify-content-between">
+                                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> {{views}}</a>
+                                    <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>
+                                        {{comments.length}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <!-- Sidebar Widget -->
+                    <div class="single-sidebar-widget p-30">
+                        <!-- Section Title -->
+                        <div class="section-heading">
+                            <h5>Newsletter</h5>
+                        </div>
+
+                        <div class="newsletter-form">
+                            <p>Subscribe our newsletter gor get notification about new updates, information discount,
+                                etc.</p>
+                            <form action="/add" method="post">
+                                <input type="text" name="firstName" placeholder="Enter your first name">
+                                <input type="text" name="lastName" placeholder="Enter your lastname">
+                                <input type="email" name="email" placeholder="Enter your email">
+                                <button type="submit" class="btn mag-btn w-100">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- ##### Post Details Area End ##### -->

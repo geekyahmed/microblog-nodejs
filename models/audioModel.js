@@ -35,14 +35,6 @@ const AudioSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    isFeatured: {
-        type: Boolean,
-        default: true
-    },
-    isTop: {
-        type: Boolean,
-        default: true
-    },
     category: {
         type: Schema.Types.ObjectId,
         ref: 'category'
@@ -67,7 +59,15 @@ const AudioSchema = new Schema({
         type: String,
         default: ''
     },
-
+    views: {
+        type: Number
+    },
+    likes: {
+        type: Number
+    },
+    dislikes: {
+        type: Number
+    }
 })
 
 AudioSchema.pre('save', function (next) {

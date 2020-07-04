@@ -4,7 +4,8 @@ const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports = {
   getProfile: (req, res) => {
-    res.render('admin/profile/index')
+    res.render('admin/profile/index', {        title: 'Profile',
+})
   },
   updateProfile: (req, res) => {
     const firstName = req.body.firstName
@@ -28,7 +29,7 @@ module.exports = {
       user.lastName = lastName
       user.username = username
       user.email = email
-      user.bio
+      user.bio = bio
       user.file = `/uploads/users/${filename}`
 
       user.save().then(updateProfile => {

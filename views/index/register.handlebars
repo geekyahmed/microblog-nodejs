@@ -1,69 +1,65 @@
-<div class="row">
-    <div class="col-md-8 mx-auto">
-        {{#if errors}}
-            {{#each errors}}
-                <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-                    <strong>{{message}}</strong>
-                </div>
-            {{/each}}
-        {{/if}}
-
-
-
-        <div class="card card-register mx-auto my-5">
-            <div class="card-header">Register an Account</div>
-            <div class="card-body">
-                <form action="/register" method="post">
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="exampleInputName">First name</label>
-                                <input name="firstName" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name"
-                                       value="{{firstName}}">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="exampleInputLastName">Last name</label>
-                                <input name="lastName" class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name"
-                                       value="{{lastName}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                     <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input name="email" class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp"
-                                    placeholder="Enter email" value="{{email}}">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="exampleInputUsername">Username</label>
-                                <input name="username" class="form-control" id="exampleInpuUsername1" type="text" aria-describedby="usernameHelp"
-                                    placeholder="Enter username" value="{{username}}">
-                            </div>
-                     </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input name="password" class="form-control" id="exampleInputPassword1" type="password" placeholder="Password"  >
-                            </div>
-                            <div class="col-md-6">
-                                <label for="exampleConfirmPassword">Confirm password</label>
-                                <input name="passwordConfirm" class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password" >
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
-                </form>
-                <div class="text-center">
-                    <a class="d-block small mt-3" href="/login">Login Page</a>
-                    <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-                    <a class="d-block small" href="/">Home Page?</a>
+<!-- ##### Breadcrumb Area Start ##### -->
+<section class="breadcrumb-area bg-img bg-overlay" style="background-image: url(/img/bg-img/40.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content">
+                    <h2>Register</h2>
                 </div>
             </div>
         </div>
+    </div>
+</section>
+<!-- ##### Breadcrumb Area End ##### -->
 
+<!-- ##### Login Area Start ##### -->
+<div class="mag-login-area py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+                <div class="login-content bg-white p-30 box-shadow">
+                    <!-- Section Title -->
+                    <div class="section-heading">
+                        <h5>Register Here!</h5>
+                    </div>
+
+                    <form action="/register" method="POST">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name='firstName' placeholder="First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="lastName" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name='username' placeholder="Username">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" name="email" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="password" class="form-control" name="confirmPassword"
+                                    placeholder="Confirm Password"> </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox mr-sm-2">
+                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                <label class="custom-control-label" for="customControlAutosizing">Remember me</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn mag-btn mt-30">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
+<!-- ##### Login Area End ##### -->

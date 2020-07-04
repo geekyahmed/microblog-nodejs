@@ -6,11 +6,16 @@ const commentController = require('../controllers/commentController')
 const categoryController = require('../controllers/categoryController')
 const authorController = require('../controllers/authorController')
 const blogController = require('../controllers/settingController')
+const pageController = require('../controllers/pageController')
 const subscriberController = require('../controllers/subscriberController')
 const newsletterController = require('../controllers/newsletterController')
 const dashboardController = require('../controllers/dashboardController')
 const navigationController = require('../controllers/navigationController')
-const { isUserAuthenticated, isUserAdmin } = require('../middlewares/auth.js')
+const footerController = require('../controllers/footerController')
+const {
+  isUserAuthenticated,
+  isUserAdmin
+} = require('../middlewares/auth.js')
 router.all('/*', isUserAuthenticated, isUserAdmin, (req, res, next) => {
   req.app.locals.layout = 'admin'
 
@@ -50,7 +55,7 @@ router.route('/audios/delete/:id').delete(postController.deleteAudio)
 router
   .route('/settings')
   .get(blogController.getBlogSettings)
-  .post(blogController.submitBlogSetting)
+  .put(blogController.submitBlogSetting)
 
 // /* ADMIN CATEGORY ROUTES*/
 
@@ -99,16 +104,28 @@ router
   .get(authorController.getEditAuthorPage)
   .put(authorController.editAuthor)
 
-  router.route('/author/delete/:id').delete(authorController.deleteAuthor)
+router.route('/author/delete/:id').delete(authorController.deleteAuthor)
 router
   .route('/profile')
   .get(profileController.getProfile)
   .put(profileController.updateProfile)
 
-  router.route('/navigation').get(navigationController.getNavigations).post(navigationController.addNavigation)
+router.route('/navigation').get(navigationController.getNavigations).post(navigationController.addNavigation)
 
-  router.route('/navigation/edit/:id').get(navigationController.getEditNavigation).put(navigationController.editNavigation)
+router.route('/navigation/edit/:id').get(navigationController.getEditNavigation).put(navigationController.editNavigation)
 
-  router.route('/navigation/delete/:id').delete(navigationController.deleteNavigation)
+router.route('/navigation/delete/:id').delete(navigationController.deleteNavigation)
+
+router.route('/pages').get(pageController.getPages)
+
+router.route('/page/create').get(pageController.getCreatePage).post(pageController.createPage)
+
+router.route('/footer').get(footerController.getEditFooter)
+
+router.route('/subcategories').get(categoryController.getSubCategoryPage).post(categoryController.createSubCategory)
+
+router.route('/subcategory/edit/:id').get(categoryController.getEditSubCategoriesPage).put(categoryController.submitEditSubCategoriesPage)
+
+router.route('/subcategory/delete/:id').delete(categoryController.deleteSubCategoy)
 
 module.exports = router

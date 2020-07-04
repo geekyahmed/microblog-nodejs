@@ -5,10 +5,10 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Create</strong> Post
+                            <strong>Create</strong> Audio Post
                         </div>
                         <div class="card-body card-block">
-                            <form action="/dashboard/posts/create" method="post" enctype="multipart/form-data"
+                            <form action="/dashboard/audios/create" method="post" enctype="multipart/form-data"
                                 class="form-horizontal">
                                 <div class="row form-group">
                                     <div class="col col-md-3">
@@ -88,49 +88,63 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Post</strong> Elements
+                
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <strong>Audio </strong> File
+                            </div>
+                            <div class="card-body card-block">
+                                <div class="row form-group">
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" id="file-input" name="uploadedAudio"
+                                            class="form-control-file">
+                                    </div>
+                                </div>
                         </div>
-                        <div class="card-body card-block">
-                            Allow Comments :
-                            <label class="switch switch-text switch-primary switch-pill">
-                                <input type="checkbox" class="switch-input" name="allowComments">
-                                <span data-on="On" data-off="Off" class="switch-label"></span>
-                                <span class="switch-handle"></span>
-                            </label>
-                            <br>
-                            <br>
-                            Add To Featured Posts :
-                            <label class="switch switch-text switch-primary switch-pill">
-                                <input type="checkbox" class="switch-input" name="isFeatured">
-                                <span data-on="On" data-off="Off" class="switch-label"></span>
-                                <span class="switch-handle"></span>
-                            </label>
-                            <br>
-                            <br>
-                            Add To Top Posts :
-                            <label class="switch switch-text switch-primary switch-pill">
-                                <input type="checkbox" class="switch-input" name="isTop">
-                                <span data-on="On" data-off="Off" class="switch-label"></span>
-                                <span class="switch-handle"></span>
-                            </label>
-                            <br>
-                            <br>
-                            Send Post To Subscribers :
-                            <label class="switch switch-text switch-primary switch-pill">
-                                <input type="checkbox" class="switch-input" name="isTop">
-                                <span data-on="On" data-off="Off" class="switch-label"></span>
-                                <span class="switch-handle"></span>
-                            </label>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Post</strong> Elements
+                            </div>
+                            <div class="card-body card-block">
+                                Allow Comments :
+                                <label class="switch switch-text switch-primary switch-pill">
+                                    <input type="checkbox" class="switch-input" name="allowComments">
+                                    <span data-on="On" data-off="Off" class="switch-label"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                                <br>
+                                <br>
+                                Add To Featured Posts :
+                                <label class="switch switch-text switch-primary switch-pill">
+                                    <input type="checkbox" class="switch-input" name="isFeatured">
+                                    <span data-on="On" data-off="Off" class="switch-label"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                                <br>
+                                <br>
+                                Add To Top Posts :
+                                <label class="switch switch-text switch-primary switch-pill">
+                                    <input type="checkbox" class="switch-input" name="isTop">
+                                    <span data-on="On" data-off="Off" class="switch-label"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                                <br>
+                                <br>
+                                Send Post To Subscribers :
+                                <label class="switch switch-text switch-primary switch-pill">
+                                    <input type="checkbox" class="switch-input" name="isTop">
+                                    <span data-on="On" data-off="Off" class="switch-label"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div>
                         </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 </div>
 </div>

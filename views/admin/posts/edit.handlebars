@@ -47,7 +47,6 @@
                                         <select name="type" id="type" class="form-control">
                                             <option value="post">Post</option>
                                             <option value="audio">Audio</option>
-                                            <option value="video">Video</option>
                                         </select>
                                     </div>
                                 </div>
@@ -67,11 +66,20 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label for="textarea-input" class=" form-control-label">Excerpt</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <textarea name="excerpt"  rows="9" id="edit"
+                                            class="form-control">{{{post.excerpt}}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
                                         <label for="textarea-input" class=" form-control-label">Content</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <textarea name="description" id="textarea-input" rows="9"
-                                            value="{{post.description}}" class="form-control"></textarea>
+                                        <textarea name="description"  rows="9" id="edit"
+                                            class="form-control">{{{post.description}}}</textarea>
                                     </div>
                                 </div>
                                 <div class="card-footer">
@@ -104,7 +112,8 @@
                         <div class="card-body card-block">
                             Allow Comments :
                             <label class="switch switch-text switch-primary switch-pill">
-                                <input type="checkbox" class="switch-input" name="allowComments">
+                                <input type="checkbox" class="switch-input" {{#if commentIsApproved}}checked="checked"
+                                    {{/if}} name="allowComments">
                                 <span data-on="On" data-off="Off" class="switch-label"></span>
                                 <span class="switch-handle"></span>
                             </label>

@@ -16,7 +16,7 @@ const CommentSchema = new Schema({
     email: {
         type: String
     },
-    posts: {
+    post: {
         type: Schema.Types.ObjectId,
         ref: 'post'
     },

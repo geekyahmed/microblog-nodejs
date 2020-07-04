@@ -1,32 +1,87 @@
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer-area">
+    <div class="copywrite-area">
+        <div class="container">
+            <div class="row">
+                <!-- Copywrite Text -->
+                <div class="col-12 col-sm-6">
+                    <p class="copywrite-text">
+                        Copyright &copy;
+                        <script>document.write(new Date.getFullYear());</script> All rights reserved | Elixir
+                        Blog
+                    </p>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">Privacy</a></li>
+                            <li><a href="/advert">Advertisement</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.container -->
 </footer>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
 
+<script type="text/javascript" src="/js/froala_editor.min.js"></script>
+<script type="text/javascript" src="/js/plugins/align.min.js"></script>
+<script type="text/javascript" src="/js/plugins/char_counter.min.js"></script>
+<script type="text/javascript" src="/js/plugins/code_beautifier.min.js"></script>
+<script type="text/javascript" src="/js/plugins/code_view.min.js"></script>
+<script type="text/javascript" src="/js/plugins/colors.min.js"></script>
+<script type="text/javascript" src="/js/plugins/draggable.min.js"></script>
+<script type="text/javascript" src="/js/plugins/emoticons.min.js"></script>
+<script type="text/javascript" src="/js/plugins/entities.min.js"></script>
+<script type="text/javascript" src="/js/plugins/file.min.js"></script>
+<script type="text/javascript" src="/js/plugins/font_size.min.js"></script>
+<script type="text/javascript" src="/js/plugins/font_family.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fullscreen.min.js"></script>
+<script type="text/javascript" src="/js/plugins/image.min.js"></script>
+<script type="text/javascript" src="/js/plugins/image_manager.min.js"></script>
+<script type="text/javascript" src="/js/plugins/line_breaker.min.js"></script>
+<script type="text/javascript" src="/js/plugins/inline_style.min.js"></script>
+<script type="text/javascript" src="/js/plugins/link.min.js"></script>
+<script type="text/javascript" src="/js/plugins/lists.min.js"></script>
+<script type="text/javascript" src="/js/plugins/paragraph_format.min.js"></script>
+<script type="text/javascript" src="/js/plugins/paragraph_style.min.js"></script>
+<script type="text/javascript" src="/js/plugins/quick_insert.min.js"></script>
+<script type="text/javascript" src="/js/plugins/quote.min.js"></script>
+<script type="text/javascript" src="/js/plugins/table.min.js"></script>
+<script type="text/javascript" src="/js/plugins/save.min.js"></script>
+<script type="text/javascript" src="/js/plugins/url.min.js"></script>
+<script type="text/javascript" src="/js/plugins/video.min.js"></script>
+<script type="text/javascript" src="/js/plugins/help.min.js"></script>
+<script type="text/javascript" src="/js/plugins/print.min.js"></script>
+<script type="text/javascript" src="/js/third_party/spell_checker.min.js"></script>
+<script type="text/javascript" src="/js/plugins/special_characters.min.js"></script>
+<script type="text/javascript" src="/js/plugins/word_paste.min.js"></script>
 <!-- Bootstrap core JavaScript -->
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/js/vendor/jquery-2.2.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<script src="/js/vendor/bootstrap.min.js"></script>
-<script src="/https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-<script src="/js/easing.min.js"></script>
-<script src="/js/hoverIntent.js"></script>
-<script src="/js/superfish.min.js"></script>
-<script src="/js/jquery.ajaxchimp.min.js"></script>
-<script src="/js/jquery.magnific-popup.min.js"></script>
-<script src="/js/mn-accordion.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/jquery.nice-select.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/mail-script.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/theme.js"></script>
+<!-- jQuery-2.2.4 js -->
+<script type="text/javascript" src="/js/sweetalert.min.js"></script>
+<script type="text/javascript">
+    (function () {
+        new FroalaEditor("#edit", {
+            // Set the file upload URL.
+            imageUploadURL: 'uploadimage',
+
+        })
+    })()
+</script>
+<script src="/js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="/js/bootstrap/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<!-- All Plugins js -->
+<script src="/js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="/js/active.js"></script>
 
 
 <script>

@@ -2,16 +2,24 @@ const User = require('../models/userModel').User
 const ObjectId = require('mongoose').Types.ObjectId
 const Setting = require('../models/settingModel').Setting
 const Category = require('../models/categoryModel').Category
-const { isEmpty } = require('../config/customFunctions')
+const {
+  isEmpty
+} = require('../config/customFunctions')
 
 module.exports = {
   getBlogSettings: (req, res) => {
-    
-        res.render('admin/blog/index')
+    Setting.findOne()
+      .then(setting => {
+        res.render('admin/settings/index', {
+                  title: 'Settings',
+
+          setting: setting
+        })
+      })
+
   },
 
-   submitBlogSetting: (req, res) => {
-    // Check for any input file
+  submitBlogSetting: (req, res) => {
     let filename = ''
 
     if (!isEmpty(req.files)) {
@@ -22,18 +30,16 @@ module.exports = {
         if (err) throw err
       })
     }
+    Setting.findOne()
+      .then(setting => {
+        setting.title = req.body.title,
+          setting.description = req.body.description,
+          setting.tagline = req.body.tagline,
+          setting.file = `/uploads/${filename}`
 
-    const newSetting = new Setting({
-      title: req.body.title,
-      description: req.body.description,
-      tagline: req.body.tagline,
-
-      file: `/uploads/${filename}`
-    })
-
-    newSetting.save().then(setting => {
-      req.flash('success-message',` Blog created successfully.`)
-      res.redirect('/dashboard/settings')
-    })
+        setting.save().then(savedSetting => {
+          res.redirect('/dashboard/settings')
+        })
+      })
   },
 }

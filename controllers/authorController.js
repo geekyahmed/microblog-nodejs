@@ -1,5 +1,6 @@
 const User = require('../models/userModel').User
 const Post = require('../models/postModel').Post
+const bcrypt = require('bcryptjs')
 const {
   isEmpty
 } = require('../config/customFunctions')
@@ -10,18 +11,21 @@ module.exports = {
     const authors = await User.find()
     Post.find().then(posts => {
       res.render('admin/author/index', {
+        title: 'All Authors',
         posts: posts,
         authors: authors
       })
     })
   },
   getAddAuthorPage: (req, res) => {
-    res.render('admin/author/add')
+    res.render('admin/author/add',        { title: 'Add Author',}
+)
   },
   addAuthour: (req, res) => {
     const firstName = req.body.firstName
     const lastName = req.body.lastName
     const username = req.body.username
+    const password = req.body.password
     const role = req.body.role
     const email = req.body.email
     const bio = req.body.bio
@@ -41,15 +45,22 @@ module.exports = {
       lastName: lastName,
       username: username,
       email: email,
+      password: password,
       role: role,
       bio: bio,
       file: `/uploads/users/${filename}`
     })
 
-    newUser.save().then(savedUser => {
-      req.flash('success_message', ` User created succesfully`)
-      res.redirect('/dashboard/authors')
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        newUser.password = hash
+        newUser.save().then(savedUser => {
+          req.flash('success_message', ` User created succesfully`)
+          res.redirect('/dashboard/authors')
+        })
+      })
     })
+
   },
   getEditAuthorPage: (req, res) => {
     const id = req.params.id
@@ -66,6 +77,8 @@ module.exports = {
       $or: $or
     }).then(user => {
       res.render('admin/author/edit', {
+                title: 'Edit Author',
+
         user: user
       })
     })
@@ -99,15 +112,15 @@ module.exports = {
     }
     User.findOne({
       $or: $or
-    }).then(user => {
-      user.firstName = firstName
-      user.lastName = lastName
-      user.username = username
-      user.email = email
-      user.bio
-      user.file = `/uploads/users/${filename}`
+    }).then(author => {
+      author.firstName = firstName
+      author.lastName = lastName
+      author.username = username
+      author.email = email
+      author.bio = bio
+      author.file = `/uploads/users/${filename}`
 
-      user.save().then(updateProfile => {
+      author.save().then(updateProfile => {
         req.flash('success_message', `Author Profile Has Been Updated`)
         res.redirect('/dashboard/authors')
       })

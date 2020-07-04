@@ -1,11 +1,23 @@
 const Navigation = require('../models/navigationModel').Navigation
+const Post = require('../models/postModel').Post
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports = {
+    mainNavigation: async (req, res) => {
+        const navigations = await Navigation.find()
+        const posts = await Post.find()
+
+        res.render('partials/index/top-navigation', {
+            navigations: navigations,
+            posts: posts
+        })
+    },
     getNavigations: async (req, res) => {
         const navigation = await Navigation.find()
 
         res.render('admin/navigation/index', {
+                    title: 'All Navigations',
+
             navigation: navigation
         })
     },
@@ -36,7 +48,11 @@ module.exports = {
         Navigation.findOne({
             $or: $or
         }).then(navigation => {
-            res.render('admin/navigation/edit', {navigation: navigation})
+            res.render('admin/navigation/edit', {
+                        title: 'Edit Navigation',
+
+                navigation: navigation
+            })
         })
     },
     editNavigation: (req, res) => {
@@ -63,17 +79,7 @@ module.exports = {
     },
     deleteNavigation: (req, res) => {
         const id = req.params.id
-        const $or = [{
-            slug: id
-        }]
-        if (ObjectId.isValid(id)) {
-            $or.push({
-                _id: ObjectId(id)
-            })
-        }
-        Navigation.findOneAndDelete({
-            $or: $or
-        }).then(deletedNav => {
+        Navigation.findByIdAndDelete(id).then(deletedNav => {
             req.flash('success_message', `Deleted Navigation Bar`)
             res.redirect('/dashboard/navigation')
         })

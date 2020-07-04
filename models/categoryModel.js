@@ -14,6 +14,10 @@ const CategorySchema = new Schema({
         type: String,
         slug: 'title'
     },
+    description: {
+        type: String,
+        required: true
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'user'
@@ -25,8 +29,10 @@ const CategorySchema = new Schema({
 });
 
 CategorySchema.pre('save', function (next) {
-  this.slug = this.title.split(' ').join('-')
-  next()
+    this.slug = this.title.split(' ').join('-')
+    next()
 })
 
-module.exports = {Category: mongoose.model('category', CategorySchema )};
+module.exports = {
+    Category: mongoose.model('category', CategorySchema)
+};

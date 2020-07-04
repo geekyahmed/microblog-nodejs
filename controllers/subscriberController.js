@@ -5,17 +5,14 @@ module.exports = {
     const subscribers = await Subscriber.find()
 
     res.render('admin/newsletter/subscribers/index', {
+      title: 'Subscribers',
+
       subscribers: subscribers
     })
   },
   addSubscriber: (req, res) => {
     const email = req.body.email
-    const firstName = req.body.firstName
-    const lastName = req.body.lastName
-
     const newSubscriber = new Subscriber({
-      firstName: firstName,
-      lastName: lastName,
       email: email
     })
 
