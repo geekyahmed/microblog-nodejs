@@ -139,10 +139,4 @@ app.use("/", authRoutes, indexRoutes);
 app.use('/dashboard', adminRoutes)
 
 //LIsten To Server and Port Number
-app.listen(port.portID, (err) => {
-  console.log(`Node.js server listening on ${port.portID}`);
-  ngrok.connect(port.portIDt, function (err, url) {
-    console.log(`Node.js local server is publicly-accessible at ${url}`);
-  });
-
-});
+app.listen(process.env.PORT || 7000);
