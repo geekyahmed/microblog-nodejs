@@ -52,11 +52,6 @@ app.use(
   })
 );
 
-app.use(function (req, res, next) {
-  res.status(404).render('index/404', {
-    title: "Sorry, page not found"
-  });
-});
 
 //Setting Up Method Overrride
 app.use(methodOverride('newMethod'));
