@@ -69,7 +69,7 @@
                                         <label for="textarea-input" class=" form-control-label">Excerpt</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <textarea name="excerpt"  rows="9" id="edit"
+                                        <textarea name="excerpt" rows="9" id="edit"
                                             class="form-control">{{{post.excerpt}}}</textarea>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                                         <label for="textarea-input" class=" form-control-label">Content</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <textarea name="description"  rows="9" id="edit"
+                                        <textarea name="description" rows="9" id="edit"
                                             class="form-control">{{{post.description}}}</textarea>
                                     </div>
                                 </div>
@@ -91,20 +91,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Cover </strong> Image
-                        </div>
-                        <div class="card-body card-block">
-                            <div class="row form-group">
-                                <div class="col-12 col-md-9">
-                                    <input type="file" id="file-input" name="uploadedFile" value="{{post.uploadedFile}}"
-                                        accept="image/jpeg, image/jpg, image/png, image/bmp" class="form-control-file">
-                                </div>
-                            </div>
-                        </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <strong>Cover </strong> Image
+            </div>
+            <div class="file-upload">
+                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add
+                    Image</button>
+    
+                <div class="image-upload-wrap">
+                    <input class="file-upload-input" type='file' name="uploadedFile" onchange="readURL(this);"
+                        accept="image/*" />
+                    <div class="drag-text">
+                        <h3>Drag and drop a file or select add Image</h3>
                     </div>
+                </div>
+                <div class="file-upload-content">
+                    <img class="file-upload-image" src="{{post.file}}" alt="your image" />
+                    <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
+                                class="image-title">Uploaded Image</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
                     <div class="card">
                         <div class="card-header">
                             <strong>Post</strong> Elements
@@ -112,8 +123,8 @@
                         <div class="card-body card-block">
                             Allow Comments :
                             <label class="switch switch-text switch-primary switch-pill">
-                                <input type="checkbox" class="switch-input" {{#if commentIsApproved}}checked="checked"
-                                    {{/if}} name="allowComments">
+                                <input type="checkbox" class="switch-input"
+                                    {{#if post.commentIsApproved}}checked="checked" {{/if}} name="allowComments">
                                 <span data-on="On" data-off="Off" class="switch-label"></span>
                                 <span class="switch-handle"></span>
                             </label>

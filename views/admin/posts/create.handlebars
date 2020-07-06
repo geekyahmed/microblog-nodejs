@@ -60,7 +60,7 @@
                                         <label for="excerpt-input" class=" form-control-label">Excerpt</label>
                                     </div>
                                     <div style=" width: 81%; margin: auto; text-align: left;" class="col-12 col-md-9">
-                                        <textarea name="excerpt"  rows="3" id="edit" placeholder="Excerpt..."
+                                        <textarea name="excerpt" rows="3" id="edit" placeholder="Excerpt..."
                                             class="form-control"></textarea>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                         <label for="textarea-input" class=" form-control-label">Content</label>
                                     </div>
                                     <div style=" width: 81%; margin: auto; text-align: left;" class="col-12 col-md-9">
-                                        <textarea id='edit' name="description"  rows="9" placeholder="Content..."
+                                        <textarea id='edit' name="description" rows="9" placeholder="Content..."
                                             class="form-control"></textarea>
                                     </div>
                                 </div>
@@ -87,24 +87,23 @@
                         <div class="card-header">
                             <strong>Cover </strong> Image
                         </div>
-                        <div class="card-body card-block">
-                            <div class="row form-group">
-                                <div class="file-upload">
-  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+                        <div class="file-upload">
+                            <button class="file-upload-btn" type="button"
+                                onclick="$('.file-upload-input').trigger( 'click' )">Add
+                                Image</button>
 
-  <div class="image-upload-wrap">
-    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-    <div class="drag-text">
-      <h3>Drag and drop a file or select add Image</h3>
-    </div>
-  </div>
-  <div class="file-upload-content">
-    <img class="file-upload-image" src="#" alt="your image" />
-    <div class="image-title-wrap">
-      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-    </div>
-  </div>
-</div>
+                            <div class="image-upload-wrap">
+                                <input class="file-upload-input" type='file' name="uploadedFile"
+                                    onchange="readURL(this);" accept="image/*" />
+                                <div class="drag-text">
+                                    <h3>Drag and drop a file or select add Image</h3>
+                                </div>
+                            </div>
+                            <div class="file-upload-content">
+                                <img class="file-upload-image" src="{{post.file}}" alt="your image" />
+                                <div class="image-title-wrap">
+                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
+                                            class="image-title">Uploaded Image</span></button>
                                 </div>
                             </div>
                         </div>

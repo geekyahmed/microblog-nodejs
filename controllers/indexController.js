@@ -76,7 +76,7 @@ module.exports = {
         .skip((page - 1) * audioLimit)
         .exec()
 
-      const ad = await Ad.findOne()
+        const ad = await Ad.findOne()
       // execute query with page and limit values
       const posts = await Post.find({
           status: 'public'
@@ -119,7 +119,7 @@ module.exports = {
 
     const id = req.params.id
     const $or = [{
-      slug: id
+      slug: id.toLowerCase()
     }]
 
     if (ObjectId.isValid(id)) {
@@ -155,6 +155,8 @@ module.exports = {
       .skip((page - 1) * featuredLimit)
 
     Post.findOneAndUpdate({
+        $or: $or
+      }, {
         $inc: {
           views: 1
         }

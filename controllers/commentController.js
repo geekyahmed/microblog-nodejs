@@ -28,7 +28,7 @@ module.exports = {
       post.save().then(savedPost => {
         newComment.save().then(savedComment => {
           req.flash('success-message', 'Your comment was submitted .')
-          res.redirect(`/post/${post.slug}`)
+          res.redirect(`/post/${post.slug.toLowerCase()}`)
         })
       })
     })
@@ -63,16 +63,16 @@ module.exports = {
     })
   },
   getComments: (req, res) => {
-      Comment.find()
-        .populate('user')
-        .then(comments => {
-          res.render('admin/comments/index', {
-                    title: 'All Comments',
+    Comment.find()
+      .populate('user')
+      .then(comments => {
+        res.render('admin/comments/index', {
+          title: 'All Comments',
 
-            comments: comments
-          })
+          comments: comments
         })
-  
+      })
+
 
   },
   deleteComment: (req, res) => {

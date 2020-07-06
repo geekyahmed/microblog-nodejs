@@ -30,7 +30,6 @@ const {
 const imageUploader = require('./helpers/imageUpload')
 const fileUploader = require('./helpers/fileUpload')
 const fs = require('fs')
-var FroalaEditor = require('./public/lib/froalaEditor.js');
 const app = express();
 
 //Setting Up Express
@@ -44,7 +43,6 @@ app.use(
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use(renderPage)
 
 //Setting Up Session
 app.use(
@@ -54,18 +52,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.post('/uploadimage', function (req, res) {
-
-  // Store image.
-  FroalaEditor.Image.upload(req, '/uploads/', function(err, data) {
-    // Return data.
-    if (err) {
-      return res.send(JSON.stringify(err));
-    }
-
-    res.send(data);
-  });
-});
 
 //Setting Up Method Overrride
 app.use(methodOverride('newMethod'));
