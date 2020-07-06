@@ -1,47 +1,3 @@
-{{!-- <div class="row">
-    <div class="container">
-        <div class="col-md-10">
-            <table class="table table-bordered text-center text-white">
-                <thead class="bg-dark">
-                    <tr>
-                        <th>Id</th>
-                        <th>Publisher</th>
-                                                <th>Post</th>
-                        <th>Email</th>
-                        <th>Approve Comments</th>
-                        <th>Date</th>
-                        <th>Comment Body</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody class="text-dark">
-                    {{#each comments}}
-                    <tr>
-                        <td>{{id}}</td>
-                        <td style="width: auto;">{{full_name}}</td>
-                                                <td style="width: auto;"><a href="/post/{{slug}}">{{post.title}}</td>
-                        <td>{{email}}</td>
-
-                        <td><input type="checkbox" name="commentIsApproved" class="approveComment" 
-                                {{#if commentIsApproved}}checked="checked" {{/if}} /></td>
-                        <td>{{date}}</td>
-                        <td>{{body}}</td>
-                        <td>
-                            <form class="form-group" action="/dashboard/comment/delete/{{id}}?newMethod=DELETE" method="POST">
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-
-                    {{/each}}
-                </tbody>
-
-
-            </table>
-        </div>
-    </div>
-</div> --}}
 <div class="main-content">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -80,7 +36,7 @@
                                             </td>
                                             <td>
                                                 <div class="table-data__info">
-                                                    <h6>{{body}}</h6>
+                                                    <h6>{{{body}}}</h6>
                                                 </div>
                                             </td>
                                             <td>

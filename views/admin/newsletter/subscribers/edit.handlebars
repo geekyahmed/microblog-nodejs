@@ -9,18 +9,6 @@
                         class="row form-group mb-5">
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-3">
-                                    <label for="exampleInputName">First name</label>
-                                    <input name="firstName" class="form-control" id="exampleInputName" type="text"
-                                        aria-describedby="nameHelp" placeholder="Enter first name"
-                                        value="{{subscriber.firstName}}">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputLastName">Last name</label>
-                                    <input name="lastName" class="form-control" id="exampleInputName" type="text"
-                                        aria-describedby="nameHelp" placeholder="Enter last name"
-                                        value="{{subscriber.lastName}}">
-                                </div>
                                 <div class="col-md-5">
                                     <label for="exampleInputLastName">Email</label>
                                     <input name="email" class="form-control" id="exampleInputEmail" type="text"
@@ -41,8 +29,6 @@
                             <thead>
                                 <tr>
                                     <th>date</th>
-                                    <th>first name</th>
-                                    <th>last name</th>
                                     <th>email</th>
                                     <th>action</th>
                                 </tr>
@@ -51,8 +37,6 @@
                                 {{#each subscribers}}
                                 <tr>
                                     <td>{{creationDate}}</td>
-                                    <td>{{firstName}}</td>
-                                    <td>{{lastName}}</td>
                                     <td>{{email}}</td>
                                     <td>
                                         <a href="/dashboard/newsletter/subscriber/edit/{{id}}"
