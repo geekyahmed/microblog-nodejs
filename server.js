@@ -18,7 +18,6 @@ const {
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const indexRoutes = require("./routes/indexRoutes");
-const port = require("./config/port");
 const morgan = require("morgan");
 const db = require("./config/db");
 const fileUpload = require("express-fileupload");
