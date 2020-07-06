@@ -28,7 +28,6 @@ module.exports = {
       post.save().then(savedPost => {
         newComment.save().then(savedComment => {
           req.flash('success-message', 'Your comment was submitted .')
-          res.redirect(`/post/${post.slug.toLowerCase()}`)
         })
       })
     })
@@ -57,7 +56,6 @@ module.exports = {
       audio.save().then(savedPost => {
         newComment.save().then(savedComment => {
           req.flash('success-message', 'Your comment was submitted .')
-          res.redirect(`/audio/${audio.slug}`)
         })
       })
     })
