@@ -4,8 +4,8 @@
   "description": "A blog for news, tech and entertainment",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production nodemon server.js",
-    "dev": "NODE_ENV=development nodemon server.js"
+    "start": " nodemon server.js",
+    "dev": " node server.js"
   },
   "author": "Bankole Ahmed",
   "license": "ISC",
