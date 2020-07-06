@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(
   session({
     resave: true,
-    secret: process.env.MYESSION_KEY || yamusg9fhvhr,
+    secret: process.env.MYESSION_KEY || 'yamusg9fhvhr',
     saveUninitialized: true,
   })
 );
