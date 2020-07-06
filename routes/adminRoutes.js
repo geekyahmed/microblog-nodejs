@@ -16,7 +16,7 @@ const {
   isUserAuthenticated,
   isUserAdmin
 } = require('../middlewares/auth.js')
-router.all('/*', isUserAuthenticated, (req, res, next) => {
+router.all('/*', (req, res, next) => {
   req.app.locals.layout = 'admin'
 
   next()
