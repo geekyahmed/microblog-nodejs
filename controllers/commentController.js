@@ -1,6 +1,7 @@
 const Post = require('../models/postModel').Post
 const Audio = require('../models/audioModel').Audio
 const Comment = require('../models/commentModel').Comment
+const htmlToText = require('html-to-text')
 const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports = {
@@ -15,13 +16,14 @@ module.exports = {
         _id: ObjectId(id)
       })
     }
+    const comment_body = htmlToText.fromString(req.body.comment_body);
     Post.findOne({
       $or: $or
     }).then(post => {
       const newComment = new Comment({
         full_name: req.body.full_name,
         email: req.body.email,
-        body: req.body.comment_body
+        body: comment_body
       })
 
       post.comments.push(newComment)

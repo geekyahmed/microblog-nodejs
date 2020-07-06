@@ -76,7 +76,7 @@ module.exports = {
         .skip((page - 1) * audioLimit)
         .exec()
 
-        const ad = await Ad.findOne()
+      const ad = await Ad.findOne()
       // execute query with page and limit values
       const posts = await Post.find({
           status: 'public'
@@ -249,6 +249,13 @@ module.exports = {
         }
       })
   },
+  getAllAuthors: async (req, res) => {
+    const users = await User.find()
+
+    res.render('index/authors', {
+      users: users
+    })
+  },
   getSingleAuthor: async (req, res) => {
     const {
       page = 1, limit = 10, featuredLimit = 5, topLimit = 3, categoryLimit = 5, audioLimit = 5
@@ -328,7 +335,6 @@ module.exports = {
 
     newSubscriber.save().then(savedSubscriber => {
       req.flash('success_message', `You have just Subscribed `)
-      res.redirect('/')
     })
   }
 }

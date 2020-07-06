@@ -30,6 +30,8 @@ const imageUploader = require('./helpers/imageUpload')
 const fileUploader = require('./helpers/fileUpload')
 const fs = require('fs')
 const app = express();
+const MongoStore = require('connect-mongo')(session);
+
 
 //Setting Up Express
 app.use(express());
@@ -47,7 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(
   session({
     resave: true,
-    secret: process.env.MYESSION_KEY || 'yamusg9fhvhr',
+    secret: process.env.SESSION_KEY,
     saveUninitialized: true,
   })
 );

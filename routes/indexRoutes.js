@@ -19,6 +19,8 @@ router.route('/audio/:id')
     .get(indexController.getSingleAudio)
     .post(commentController.submitAudioComment);
 
+router.route('/authors').get(indexController.getAllAuthors)
+    
 router.route('/author/:id')
     .get(indexController.getSingleAuthor)
 

@@ -1,6 +1,8 @@
 const User = require('../models/userModel').User
 const { isEmpty } = require('../config/customFunctions')
 const ObjectId = require('mongoose').Types.ObjectId
+const htmlToText = require('html-to-text')
+
 
 module.exports = {
   getProfile: (req, res) => {
@@ -12,7 +14,7 @@ module.exports = {
     const lastName = req.body.lastName
     const username = req.body.username
     const email = req.body.email
-    const bio = req.body.bio
+    const bio = htmlToText.fromString(req.body.bio);
 
     let filename = ''
 
