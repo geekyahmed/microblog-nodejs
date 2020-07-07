@@ -113,7 +113,6 @@ switch (app.get("env")) {
     mongoose
       .connect(db.production.connectionString, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
         useCreateIndex: true,
       })
       .then((response) => {
