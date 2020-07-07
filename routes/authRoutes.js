@@ -16,11 +16,13 @@ router.all('/*', (req, res, next) => {
 });
 
 // Defining Local Strategy
-passport.use('local',new LocalStrategy({
+passport.use('local', new LocalStrategy({
     usernameField: 'email',
     passReqToCallback: true
 }, (req, email, password, done) => {
-    User.findOne({ email: email }).then(user => {
+    User.findOne({
+        email: email
+    }).then(user => {
         if (!user) {
             return done(null, false, req.flash('error_message', 'User not found with this email.'));
         }
@@ -58,7 +60,7 @@ router.route('/login')
         failureRedirect: '/login',
         failureFlash: true,
         successFlash: true,
-        session: true
+        session: false
     }), authController.loginUser);
 
 
