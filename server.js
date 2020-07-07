@@ -46,14 +46,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 //Setting Up Session
-app.use(
-  session({
-    resave: true,
-    secret: process.env.SESSION_KEY,
-    saveUninitialized: true,
-  })
-);
-
 
 //Setting Up Method Overrride
 app.use(methodOverride('newMethod'));
@@ -83,6 +75,16 @@ app.use(fileUpload());
 //Configure Environments
 switch (app.get("env")) {
   case "development":
+    app.use(
+  session({
+    resave: true,
+    secret: process.env.SESSION_KEY,
+    saveUninitialized: true,
+        store: new MongoStore({ url: db.development.connectionString })
+  })
+);
+
+
     mongoose
       .connect(db.development.connectionString, {
         useNewUrlParser: true,
@@ -98,6 +100,16 @@ switch (app.get("env")) {
     app.use(morgan("dev"));
     break;
   case "production":
+    app.use(
+  session({
+    resave: true,
+    secret: process.env.SESSION_KEY,
+    saveUninitialized: true,
+        store: new MongoStore({ url: db.production.connectionString })
+  })
+);
+
+
     mongoose
       .connect(db.production.connectionString, {
         useNewUrlParser: true,
