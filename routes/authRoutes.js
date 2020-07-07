@@ -16,13 +16,13 @@ router.all('/*', (req, res, next) => {
 });
 
 // Defining Local Strategy
-passport.use(new LocalStrategy({
+passport.use('local',new LocalStrategy({
     usernameField: 'email',
     passReqToCallback: true
 }, (req, email, password, done) => {
     User.findOne({ email: email }).then(user => {
         if (!user) {
-            return done(null, false, req.flash('error-message', 'User not found with this email.'));
+            return done(null, false, req.flash('error_message', 'User not found with this email.'));
         }
 
         bcrypt.compare(password, user.password, (err, passwordMatched) => {
@@ -31,10 +31,10 @@ passport.use(new LocalStrategy({
             }
 
             if (!passwordMatched) {
-                return done(null, false, req.flash('error-message', 'Invalid Username or Password'));
+                return done(null, false, req.flash('error_message', 'Invalid Username or Password'));
             }
 
-            return done(null, user, req.flash('success-message', 'Login Successful'));
+            return done(null, user, req.flash('success_message', 'Login Successful'));
         });
 
     });
@@ -51,7 +51,6 @@ passport.deserializeUser(function (id, done) {
 });
 
 
-// noinspection JSCheckFunctionSignatures
 router.route('/login')
     .get(authController.getLoginUser)
     .post(passport.authenticate('local', {
@@ -63,7 +62,6 @@ router.route('/login')
     }), authController.loginUser);
 
 
-// noinspection JSCheckFunctionSignatures
 router.route('/register')
     .get(authController.getRegisterUser)
     .post(authController.registerUser);
