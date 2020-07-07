@@ -1,3 +1,4 @@
+<!-- ##### Header Area Start ##### -->
 <header class="header-area">
 
     <!-- Navbar Area -->
@@ -8,11 +9,11 @@
 
                 <!-- Nav brand -->
                 <a href="/" class="nav-brand">
-                    <h5 style='text-transform: uppercase'>Elixir</h5>
+                    <h6 style="text-transform: uppercase;">Elixir</h6>
                 </a>
 
                 <!-- Navbar Toggler -->
-                <div class="classy-navbar-toggler ml-auto">
+                <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
                 </div>
 
@@ -28,26 +29,64 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
+                                <li class="active"><a href="index.html">Home</a></li>
+                                <li><a href="/posts">Archive</a></li>
+                                <li><a href="#">Technology</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Programming</a></li>
+                                        <li><a href="#">Tech Hacks</a></li>
+                                        <li><a href="#">Tech Tips</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">News</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Foreign</a></li>
+                                        <li><a href="#">Nigeria</a></li>
+                                        <li><a href="#">Lifestyle</a></li>
+                                        <li><a href="#">Technology</a></li>
+                                        <li><a href="#">Sports</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Lifestyle</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Entertainment</a></li>
+                                        <li><a href="#">Music</a></li>
+                                        <li><a href="#">Fashion</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Business</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Enterpreneur</a></li>
+                                        <li><a href="#">Business Tips</a></li>
+                                        <li><a href="#">Business Ideas</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/contact">Contact</a></li>
+
                                 {{#if user}}
-                                <li><a href="/dashboard"><i class="fa fa-tachometer"></i>
-                                        Dashboard</a></li>
-                                <li><a href="/logout"><i class="fa fa-user" aria-hidden="true"></i> Logout User</a>
-                                </li>
-                                {{else}}
-                                <li><a href="/login">Login</a>
-        <li><a href="/posts">Posts</a></li>
-                                    {{#each navigations}}
-                                <li><a href="/{{slug}}">{{title}}</a>
-                                </li>
-                                {{/each}}
+                                <li>
+                                    <a href="#">{{user.firstName}} {{user.lastName}}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="/dashboard">Dashboard</a></li>
+                                        <li><a href="/dashboard/profile">Profile</a></li>
+                                        <li><a href="/logout">Log Out</a></li>
+                                    </ul>
                                 </li>
                                 {{/if}}
+                                <li>
+                                    <div class="top-meta-data d-flex align-items-center">
+                                        <!-- Login -->
+                                        <a href="/login" class="login-btn"><i class="fa fa-user" aria-hidden="true"></i>
+                                            Login Here</a>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <!-- Nav End -->
                     </div>
+                </div>
             </nav>
         </div>
     </div>
 </header>
-<!-- ##### Header Area End ##### -->
