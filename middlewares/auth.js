@@ -7,7 +7,7 @@ module.exports = {
     }
   },
   isUserAdmin: (req, res, next) => {
-      if (req.isAuthenticated() && req.user.role == 'admin') {
+    if (req.isAuthenticated() && req.user.role == 'admin') {
       next();
     } else {
       next()

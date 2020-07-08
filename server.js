@@ -76,13 +76,15 @@ app.use(fileUpload());
 switch (app.get("env")) {
   case "development":
     app.use(
-  session({
-    resave: true,
-    secret: process.env.SESSION_KEY,
-    saveUninitialized: true,
-        store: new MongoStore({ url: db.development.connectionString })
-  })
-);
+      session({
+        resave: true,
+        secret: process.env.SESSION_KEY,
+        saveUninitialized: true,
+        store: new MongoStore({
+          url: db.development.connectionString
+        })
+      })
+    );
 
 
     mongoose
@@ -101,13 +103,15 @@ switch (app.get("env")) {
     break;
   case "production":
     app.use(
-  session({
-    resave: true,
-    secret: process.env.SESSION_KEY,
-    saveUninitialized: true,
-        store: new MongoStore({ url: db.production.connectionString })
-  })
-);
+      session({
+        resave: true,
+        secret: process.env.SESSION_KEY,
+        saveUninitialized: true,
+        store: new MongoStore({
+          url: db.production.connectionString
+        })
+      })
+    );
 
 
     mongoose

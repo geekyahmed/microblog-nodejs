@@ -60,7 +60,7 @@ router.route('/login')
         failureRedirect: '/login',
         failureFlash: true,
         successFlash: true,
-        session: false
+        session: true
     }), authController.loginUser);
 
 

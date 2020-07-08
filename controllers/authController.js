@@ -51,27 +51,27 @@ module.exports = {
       User.findOne({
         email: req.body.email
       }).then(user => {
-          if (user) {
-            req.flash('error-message', 'Email already exists, try to login.')
-            res.redirect('/login')
-          } else {
-            const newUser = new User(req.body)
+        if (user) {
+          req.flash('error-message', 'Email already exists, try to login.')
+          res.redirect('/login')
+        } else {
+          const newUser = new User(req.body)
 
-            bcrypt.genSalt(10, (err, salt) => {
-              bcrypt.hash(newUser.password, salt, (err, hash) => {
-                newUser.password = hash
-                newUser.save().then(user => {
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              newUser.password = hash
+              newUser.save().then(user => {
 
-res.redirect('/login')
-                })
+                res.redirect('/login')
               })
             })
-      }
-    })
-}
-},
+          })
+        }
+      })
+    }
+  },
 
-verifyUser: (req, res) => {
+  verifyUser: (req, res) => {
     Token.findOne({
         token: req.body.token
       },
@@ -125,6 +125,7 @@ verifyUser: (req, res) => {
   },
 
   loginUser: (req, res, next) => {
+    res.redirect('/dashboard')
     next()
   },
 
