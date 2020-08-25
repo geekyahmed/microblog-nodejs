@@ -6,24 +6,15 @@ const ObjectId = require('mongoose').Types.ObjectId
 
 module.exports = {
   submitComment: (req, res) => {
-    const id = req.params.id
-    const $or = [{
-      slug: id
-    }]
+    const slug = req.params.slug
 
-    if (ObjectId.isValid(id)) {
-      $or.push({
-        _id: ObjectId(id)
-      })
-    }
-    const comment_body = htmlToText.fromString(req.body.comment_body);
     Post.findOne({
-      $or: $or
+      'slug': slug
     }).then(post => {
       const newComment = new Comment({
         full_name: req.body.full_name,
         email: req.body.email,
-        body: comment_body
+        body: req.body.comment_body
       })
 
       post.comments.push(newComment)

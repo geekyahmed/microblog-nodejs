@@ -117,16 +117,7 @@ module.exports = {
     } = req.query
     const navigation = await Navigation.find()
 
-    const id = req.params.id
-    const $or = [{
-      slug: id.toLowerCase()
-    }]
-
-    if (ObjectId.isValid(id)) {
-      $or.push({
-        _id: ObjectId(id)
-      })
-    }
+    const slug = req.params.slug
 
     const posts = await Post.find()
     const featuredPosts = await Post.find({
@@ -155,7 +146,7 @@ module.exports = {
       .skip((page - 1) * featuredLimit)
 
     Post.findOneAndUpdate({
-        $or: $or
+        'slug': slug
       }, {
         $inc: {
           views: 1
